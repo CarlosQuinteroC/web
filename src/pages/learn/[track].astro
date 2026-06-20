@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import LessonCard from '../../components/learning/LessonCard.astro';
 import '../../styles/global.css';
 
 export async function getStaticPaths() {
@@ -36,15 +37,12 @@ const title = trackId === 'digital-confidence' ? 'Confianza digital' : 'Ataques 
 
       <section aria-label="Lecciones">
         {lessons.map((lesson) => (
-          <article>
-            <p>{lesson.data.estimatedMinutes} minutos</p>
-            <h2>
-              <a href={`/learn/${lesson.data.trackId}/${lesson.data.lessonId}/`}>
-                {lesson.data.title}
-              </a>
-            </h2>
-            <p>{lesson.data.description}</p>
-          </article>
+          <LessonCard
+            href={`/learn/${lesson.data.trackId}/${lesson.data.lessonId}/`}
+            title={lesson.data.title}
+            description={lesson.data.description}
+            minutes={lesson.data.estimatedMinutes}
+          />
         ))}
       </section>
     </main>
@@ -65,8 +63,4 @@ const title = trackId === 'digital-confidence' ? 'Confianza digital' : 'Ataques 
     gap: var(--space-4);
   }
 
-  article {
-    border-block-start: 3px solid var(--color-accent);
-    padding-block-start: var(--space-4);
-  }
 </style>

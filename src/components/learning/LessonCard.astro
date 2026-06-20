@@ -1,0 +1,31 @@
+---
+export interface Props {
+  href: string;
+  title: string;
+  description: string;
+  minutes: number;
+}
+
+const { href, title, description, minutes } = Astro.props;
+---
+
+<article class="lesson-card">
+  <p>{minutes} minutos</p>
+  <h2><a href={href}>{title}</a></h2>
+  <p>{description}</p>
+</article>
+
+<style>
+  .lesson-card {
+    border-block-start: 3px solid var(--color-accent);
+    display: grid;
+    gap: var(--space-3);
+    padding-block-start: var(--space-4);
+  }
+
+  .lesson-card p:first-child {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+</style>
