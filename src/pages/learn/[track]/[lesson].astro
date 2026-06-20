@@ -1,0 +1,92 @@
+---
+import { getCollection, render } from 'astro:content';
+import '../../../styles/global.css';
+
+export async function getStaticPaths() {
+  const lessons = await getCollection('courses');
+
+  return lessons.map((lesson) => ({
+    params: {
+      track: lesson.data.trackId,
+      lesson: lesson.data.lessonId,
+    },
+    props: { lesson },
+  }));
+}
+
+const { lesson } = Astro.props;
+const { Content } = await render(lesson);
+const trackTitle =
+  lesson.data.trackId === 'digital-confidence' ? 'Confianza digital' : 'Ataques y fraudes comunes';
+---
+
+<html lang="es-CO">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{lesson.data.title} | Ojo al Fraude</title>
+  </head>
+  <body>
+    <main class="lesson-page">
+      <a href={`/learn/${lesson.data.trackId}/`}>← {trackTitle}</a>
+      <article>
+        <header>
+          <p>{lesson.data.estimatedMinutes} minutos · sin registro</p>
+          <h1>{lesson.data.title}</h1>
+          <p>{lesson.data.purpose}</p>
+        </header>
+
+        <section aria-label="Explicación">
+          <h2>Por qué importa</h2>
+          <p>{lesson.data.explanation}</p>
+        </section>
+
+        <section aria-label="Contenido de la lección">
+          <Content />
+        </section>
+
+        <section aria-label="Señales de alerta">
+          <h2>Señales de alerta</h2>
+          <ul>
+            {lesson.data.warningSigns.map((item) => <li>{item.text}</li>)}
+          </ul>
+        </section>
+
+        <section aria-label="Pasos de recuperación">
+          <h2>Si tiene duda</h2>
+          <ol>
+            {lesson.data.recoverySteps.map((step) => (
+              <li>
+                <strong>{step.title}</strong>
+                <p>{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>
+
+<style>
+  .lesson-page {
+    margin: 0 auto;
+    max-width: 48rem;
+    padding: var(--space-6);
+  }
+
+  article,
+  section {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  article {
+    margin-block-start: var(--space-5);
+  }
+
+  section {
+    border-block-start: 1px solid var(--color-border);
+    padding-block-start: var(--space-5);
+  }
+</style>

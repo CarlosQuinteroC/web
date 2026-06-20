@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+
+const lessons = await getCollection('courses');
+const tracks = Object.values(
+  lessons.reduce<
+    Record<
+      string,
+      {
+        id: string;
+        title: string;
+        description: string;
+        lessons: typeof lessons;
+      }
+    >
+  >((accumulator, lesson) => {
+    const trackTitle =
+      lesson.data.trackId === 'digital-confidence' ? 'Confianza digital' : 'Ataques y fraudes comunes';
+
+    accumulator[lesson.data.trackId] ??= {
+      id: lesson.data.trackId,
+      title: trackTitle,
+      description:
+        lesson.data.trackId === 'digital-confidence'
+          ? 'Hábitos sencillos para usar tecnología con más calma y seguridad.'
+          : 'Práctica guiada para reconocer mensajes, enlaces y presiones sospechosas.',
+      lessons: [],
+    };
+
+    accumulator[lesson.data.trackId].lessons.push(lesson);
+    return accumulator;
+  }, {}),
+);
+---
+
+<html lang="es-CO">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aprender | Ojo al Fraude</title>
+  </head>
+  <body>
+    <main class="learn-page">
+      <a href="/">← Inicio</a>
+      <header>
+        <p>Aprendizaje sin registro</p>
+        <h1>Practique señales de riesgo con calma</h1>
+        <p>
+          Empiece por una microlección. No necesita crear una cuenta ni compartir datos
+          personales.
+        </p>
+      </header>
+
+      <section aria-label="Rutas de aprendizaje">
+        {tracks.map((track) => (
+          <article>
+            <h2><a href={`/learn/${track.id}/`}>{track.title}</a></h2>
+            <p>{track.description}</p>
+            <p>{track.lessons.length} lección inicial</p>
+          </article>
+        ))}
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  .learn-page {
+    display: grid;
+    gap: var(--space-6);
+    margin: 0 auto;
+    max-width: 64rem;
+    padding: var(--space-6);
+  }
+
+  section {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+
+  article {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-3);
+    padding: var(--space-5);
+  }
+</style>
