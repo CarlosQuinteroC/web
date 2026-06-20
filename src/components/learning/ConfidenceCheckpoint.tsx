@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createLocalProgressStore } from '../../lib/progress/localProgress';
 
 export interface ConfidenceCheckpointProps {
@@ -10,6 +10,11 @@ const progressStore = createLocalProgressStore();
 
 export function ConfidenceCheckpoint({ lessonId, lessonTitle }: ConfidenceCheckpointProps) {
   const [isCompleted, setIsCompleted] = useState(false);
+
+  useEffect(() => {
+    const lessonProgress = progressStore.getState().lessons[lessonId];
+    setIsCompleted(lessonProgress?.status === 'completed');
+  }, [lessonId]);
 
   const handleComplete = () => {
     progressStore.markCompleted(lessonId);
