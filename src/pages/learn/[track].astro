@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+  const lessons = await getCollection('courses');
+  const trackIds = Array.from(new Set(lessons.map((lesson) => lesson.data.trackId)));
+
+  return trackIds.map((trackId) => ({
+    params: { track: trackId },
+    props: {
+      lessons: lessons.filter((lesson) => lesson.data.trackId === trackId),
+      trackId,
+    },
+  }));
+}
+
+const { lessons, trackId } = Astro.props;
+const title = trackId === 'digital-confidence' ? 'Confianza digital' : 'Ataques y fraudes comunes';
+---
+
+<html lang="es-CO">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | Ojo al Fraude</title>
+  </head>
+  <body>
+    <main class="track-page">
+      <a href="/learn/">← Aprender</a>
+      <header>
+        <p>Ruta de aprendizaje</p>
+        <h1>{title}</h1>
+        <p>Lecciones cortas para practicar sin registro y sin presión.</p>
+      </header>
+
+      <section aria-label="Lecciones">
+        {lessons.map((lesson) => (
+          <article>
+            <p>{lesson.data.estimatedMinutes} minutos</p>
+            <h2>
+              <a href={`/learn/${lesson.data.trackId}/${lesson.data.lessonId}/`}>
+                {lesson.data.title}
+              </a>
+            </h2>
+            <p>{lesson.data.description}</p>
+          </article>
+        ))}
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  .track-page {
+    display: grid;
+    gap: var(--space-6);
+    margin: 0 auto;
+    max-width: 56rem;
+    padding: var(--space-6);
+  }
+
+  section {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  article {
+    border-block-start: 3px solid var(--color-accent);
+    padding-block-start: var(--space-4);
+  }
+</style>
