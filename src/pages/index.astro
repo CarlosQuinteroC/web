@@ -1,5 +1,8 @@
 ---
 import '../styles/global.css';
+import Hero from '../components/landing/Hero.astro';
+import Features from '../components/landing/Features.astro';
+import Footer from '../components/layout/Footer.astro';
 ---
 
 <html lang="es-CO">
@@ -9,11 +12,19 @@ import '../styles/global.css';
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <title>Ojo al Fraude</title>
+    <title>Ojo al Fraude - Aprende a protegerte</title>
   </head>
   <body>
     <main>
-      <h1>Ojo al Fraude</h1>
+      <Hero 
+        eyebrow="Plataforma de prevención cívica"
+        title="Ojo al Fraude: protege, aprende y denuncia riesgos digitales"
+        description="Aprende a reconocer señales de manipulación digital y a construir hábitos simples para mantener tus cuentas, datos y conversaciones más seguras."
+        ctaText="Empezar a aprender"
+        ctaLink="/learn"
+      />
+      <Features />
     </main>
+    <Footer />
   </body>
 </html>

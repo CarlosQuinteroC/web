@@ -1,0 +1,41 @@
+---
+// src/components/layout/Footer.astro
+const year = new Date().getFullYear();
+---
+
+<footer role="contentinfo" class="landing-footer">
+  <div class="landing-footer__inner max-w-[var(--container-wide)] mx-auto">
+    <p class="landing-footer__copy">
+      &copy; {year} Ojo al Fraude. Todos los derechos reservados.
+    </p>
+    <p class="landing-footer__note">Plataforma de prevención y aprendizaje cívico digital.</p>
+  </div>
+</footer>
+
+<style>
+  .landing-footer {
+    background: var(--color-surface-raised);
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-8) var(--space-4);
+    text-align: center;
+  }
+
+  .landing-footer__inner {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+  }
+
+  .landing-footer__copy {
+    margin: 0;
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+  }
+
+  .landing-footer__note {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    max-width: 42ch;
+  }
+</style>

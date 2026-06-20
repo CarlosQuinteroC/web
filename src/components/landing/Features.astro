@@ -1,0 +1,179 @@
+---
+const coreOutcomes = [
+  {
+    title: 'Detectar presiones sociales en segundos',
+    description:
+      'Reconoce señales de urgencia, premios falsos y presión excesiva antes de responder en WhatsApp, correo o redes.',
+  },
+  {
+    title: 'Validar remitentes y enlaces',
+    description:
+      'Aprende una rutina corta para revisar dominio, remitente y contexto antes de abrir enlaces o compartir datos.',
+  },
+  {
+    title: 'Proteger hábitos diarios',
+    description:
+      'Construye hábitos simples para celular y computador: contraseñas, sesiones seguras y pausas de decisión.',
+  },
+];
+
+const upcomingCapabilities = [
+  {
+    title: 'Alertas comunitarias',
+    description:
+      'Se habilitará una vitrina curada de señales de riesgo reportadas para que la comunidad aprenda sin exponer víctimas.',
+  },
+  {
+    title: 'Base de casos y experiencias',
+    description:
+      'Llegará un archivo de casos compartidos para estudiar patrones repetidos y reforzar decisiones seguras.',
+  },
+  {
+    title: 'Rutas de cursos en expansión',
+    description:
+      'Abriremos recorridos más largos y especializados por nivel para cubrir más escenarios del día a día.',
+  },
+];
+---
+
+<section class="feature-shell" aria-label="Principales habilidades de prevención">
+  <div class="feature-shell__group max-w-[var(--container-wide)] mx-auto">
+    <p class="feature-shell__kicker">Primero, práctica realista</p>
+    <h2 class="font-[var(--font-display)] feature-shell__title">Lo que aprenderás hoy</h2>
+
+    <div class="feature-shell__grid" aria-label="Objetivos de aprendizaje inicial">
+      {coreOutcomes.map((item) => (
+        <article class="feature-card">
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="feature-shell feature-shell--muted" aria-label="Futuras capacidades">
+  <div class="feature-shell__group max-w-[var(--container-wide)] mx-auto">
+    <p class="feature-shell__kicker">Próximamente</p>
+    <h2 class="font-[var(--font-display)] feature-shell__title">Áreas comunitarias previstas</h2>
+
+    <div class="feature-shell__grid feature-shell__grid--compact" aria-label="Áreas futuras de crecimiento">
+      {upcomingCapabilities.map((item) => (
+        <article class="feature-card feature-card--subtle" data-state="coming-soon">
+          <p class="feature-card__status" aria-label={`${item.title} estado`}>Estado informativo · No disponible aún</p>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+          <p class="feature-card__note">Próximamente</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-shell {
+    padding: clamp(3rem, 7vw, 4.5rem) var(--space-4);
+  }
+
+  .feature-shell__group {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .feature-shell__kicker {
+    margin: 0;
+    width: fit-content;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-subtle);
+    border-radius: 999px;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .feature-shell__title {
+    margin: 0;
+    font-size: clamp(1.55rem, 3.2vw, 2.2rem);
+    line-height: 1.15;
+    max-width: 32rem;
+  }
+
+  .feature-shell__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--space-6);
+  }
+
+  .feature-shell__grid--compact {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+
+  .feature-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-soft);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .feature-card h3 {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-ui);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .feature-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: var(--leading-body);
+    max-width: 45ch;
+  }
+
+  .feature-card--subtle {
+    background: linear-gradient(180deg, var(--color-surface), rgb(255 255 255 / 0.44));
+    border-style: dashed;
+  }
+
+  .feature-card__status {
+    margin: 0;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+    letter-spacing: 0.03em;
+  }
+
+  .feature-card__note {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .feature-shell--muted {
+    background: rgb(255 255 255 / 0.42);
+    border-block: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 900px) {
+    .feature-shell__kicker {
+      margin-inline: auto;
+    }
+
+    .feature-shell__title {
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .feature-shell__group {
+      text-align: left;
+    }
+  }
+</style>

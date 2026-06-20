@@ -1,0 +1,94 @@
+---
+interface Props {
+  title: string;
+  eyebrow?: string;
+  description?: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+const { title, eyebrow, description, ctaText, ctaLink } = Astro.props;
+---
+
+<section class="hero-shell text-[var(--color-text)]">
+  <div class="hero-shell__badge" role="note">{eyebrow ?? 'Comunidad de prevención cívica'}</div>
+  <h1 id="landing-title" class="hero-shell__title">{title}</h1>
+  {description && <p class="text-[var(--text-lg)] text-[var(--color-text-muted)] mb-[var(--space-8)] max-w-[var(--container-readable)] leading-[var(--leading-relaxed)]">{description}</p>}
+  {ctaText && ctaLink && (
+    <a href={ctaLink} class="hero-shell__cta" aria-describedby="landing-title">
+      {ctaText}
+    </a>
+  )}
+</section>
+
+<style>
+  .hero-shell {
+    background:
+      linear-gradient(160deg, rgb(255 255 255 / 0.72), rgb(255 255 255 / 0.6)),
+      radial-gradient(1200px 420px at 20% -10%, var(--color-surface-subtle) 0%, transparent 60%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    margin: 0 var(--space-4);
+    padding: clamp(4rem, 9vw, 5.5rem) var(--space-6);
+    text-align: left;
+    box-shadow: var(--shadow-soft);
+    min-height: min(66vh, 28rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .hero-shell__badge {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0 var(--space-4);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-text-subtle);
+    border: 1px dashed var(--color-border);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    font-size: var(--text-sm);
+  }
+
+  .hero-shell__title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 3.35rem);
+    line-height: var(--leading-tight);
+    max-width: 28ch;
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  .hero-shell__cta {
+    background: var(--color-primary);
+    color: var(--color-primary-text);
+    font-weight: 700;
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    text-decoration: none;
+    transition: transform var(--duration-fast) var(--ease-calm), background-color var(--duration-normal) var(--ease-calm);
+  }
+
+  .hero-shell__cta:hover,
+  .hero-shell__cta:focus-visible {
+    background: var(--color-primary-hover);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 640px) {
+    .hero-shell {
+      margin-inline: var(--space-3);
+      padding: var(--space-12) var(--space-5);
+      min-height: min(72vh, 30rem);
+    }
+  }
+</style>
