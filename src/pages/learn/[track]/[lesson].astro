@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import { ConfidenceCheckpoint } from '../../../components/learning/ConfidenceCheckpoint';
+import { MessagePressureSimulation } from '../../../components/simulations/MessagePressureSimulation';
 import '../../../styles/global.css';
 
 export async function getStaticPaths() {
@@ -19,6 +20,7 @@ const { lesson } = Astro.props;
 const { Content } = await render(lesson);
 const trackTitle =
   lesson.data.trackId === 'digital-confidence' ? 'Confianza digital' : 'Ataques y fraudes comunes';
+const shouldShowMessageSimulation = lesson.data.lessonId === 'message-urgency-check';
 ---
 
 <html lang="es-CO">
@@ -52,6 +54,8 @@ const trackTitle =
             {lesson.data.warningSigns.map((item) => <li>{item.text}</li>)}
           </ul>
         </section>
+
+        {shouldShowMessageSimulation && <MessagePressureSimulation client:load />}
 
         <section aria-label="Pasos de recuperación">
           <h2>Si tiene duda</h2>
