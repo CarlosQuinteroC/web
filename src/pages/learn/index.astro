@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { ProgressSummary } from '../../components/learning/ProgressSummary';
 import '../../styles/global.css';
 
 const lessons = await getCollection('courses');
@@ -32,6 +33,11 @@ const tracks = Object.values(
     return accumulator;
   }, {}),
 );
+
+const progressLessons = lessons.map((lesson) => ({
+  lessonId: lesson.data.lessonId,
+  title: lesson.data.title,
+}));
 ---
 
 <html lang="es-CO">
@@ -61,6 +67,8 @@ const tracks = Object.values(
           </article>
         ))}
       </section>
+
+      <ProgressSummary lessons={progressLessons} client:load />
     </main>
   </body>
 </html>
